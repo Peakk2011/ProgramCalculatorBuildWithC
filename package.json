@@ -1,0 +1,25 @@
+{
+  "name": "calculator-app",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:wasm": "emcc Helloworld.c -o calculator.js -s WASM=1 -s EXPORTED_FUNCTIONS=\"['_add','_subtract','_multiply','_divide']\" -s EXPORTED_RUNTIME_METHODS=\"['ccall']\" -s NO_EXIT_RUNTIME=1",
+    "build:electron": "electron-builder",
+    "build": "npm run build:wasm && npm run build:electron",
+    "dev": "npm run build:wasm && npm start",
+    "compile:c": "gcc Helloworld.c -o calculator.exe",
+    "compile:wasm": "emcc Helloworld.c -o calculator.js -s WASM=1 -s EXPORTED_FUNCTIONS=\"['_add','_subtract','_multiply','_divide']\" -s EXPORTED_RUNTIME_METHODS=\"['ccall']\" -s NO_EXIT_RUNTIME=1",
+    "compile:debug": "gcc -g Helloworld.c -o calculator_debug.exe"
+  },
+  "devDependencies": {
+    "electron": "28.1.0",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "com.calculator.app",
+    "win": {
+      "target": "portable"
+    }
+  }
+}
